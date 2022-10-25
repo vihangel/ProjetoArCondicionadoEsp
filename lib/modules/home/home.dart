@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:splash_ifmt/modules/configuracao/config_page.dart';
 import 'package:splash_ifmt/modules/controle/controle_page.dart';
 import 'package:splash_ifmt/modules/home/home_controller.dart';
-import 'package:splash_ifmt/modules/main/main_page.dart';
 import 'package:splash_ifmt/modules/menu/agenda_page.dart';
-import 'package:splash_ifmt/modules/menu/salas_page.dart';
 import 'package:splash_ifmt/modules/perfil/perfil_page.dart';
-import 'package:splash_ifmt/shared/Components/button_white.dart';
 import 'package:splash_ifmt/shared/app_colors.dart';
 import 'package:splash_ifmt/shared/app_images.dart';
-import 'package:splash_ifmt/shared/app_text_styles.dart';
-import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 final controller = Modular.get<HomeController>();
 

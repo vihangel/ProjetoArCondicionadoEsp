@@ -4,6 +4,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:splash_ifmt/modules/controle/controle_controller.dart';
+import 'package:splash_ifmt/modules/controle/widget/button_controll.dart';
+import 'package:splash_ifmt/modules/controle/widget/elevated_card.dart';
 
 import 'package:splash_ifmt/modules/socket/socket_handler.dart';
 
@@ -39,133 +41,12 @@ class ControlePage extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
 
-              Padding(
-                padding: EdgeInsets.all(10),
-              ),
-
               //-----Linha de Botões
-              Column(
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 50,
-                        width: size.width * 0.35,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.stroke),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "Nome: " + controller.controleInfos[0].sala,
-                            style: TextStyles.small,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: size.width * 0.35,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.stroke),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "Bloco: " + controller.controleInfos[0].bloco,
-                            style: TextStyles.small,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 50,
-                        width: size.width * 0.35,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.stroke),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "Status: " + controller.controleInfos[0].status,
-                            style: TextStyles.small,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: size.width * 0.35,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                AppColors.stroke),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "Humi.: " +
-                                controller.controleInfos[0].humidade
-                                    .toString() +
-                                "%",
-                            style: TextStyles.small,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: _controllInformation(),
               ),
 
-              Padding(
-                padding: EdgeInsets.all(10),
-              ),
               SizedBox(
                 //height: 120,
                 //width: 155,
@@ -208,94 +89,42 @@ class ControlePage extends StatelessWidget {
                   );
                 }),
               ),
+
               Padding(
-                padding: EdgeInsets.all(20),
-              ),
-              SizedBox(
-                //height: 120,
-                //width: 155,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(AppColors.stroke),
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: ButtonControll(
+                  icon: Icon(
+                    Icons.add,
+                    size: 50,
                   ),
                   onPressed: () {
                     controller.setTemperatura(1);
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Icon(
-                      Icons.add,
-                      size: 50,
-                    ),
-                  ),
                 ),
               ),
-
               Padding(
-                padding: EdgeInsets.all(10),
-              ),
-              SizedBox(
-                //height: 120,
-                //width: 155,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(AppColors.stroke),
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: ButtonControll(
+                  icon: Icon(
+                    Icons.remove,
+                    size: 50,
                   ),
                   onPressed: () {
                     controller.setTemperatura((-1));
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Icon(
-                      Icons.remove,
-                      size: 50,
-                    ),
-                  ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(10),
-              ),
-              SizedBox(
-                //height: 120,
-                //width: 155,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(AppColors.stroke),
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: ButtonControll(
+                  icon: Icon(
+                    Icons.power_settings_new_rounded,
+                    size: 50,
+                    color: Colors.red[700],
                   ),
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Icon(
-                      Icons.power_settings_new_rounded,
-                      size: 50,
-                      color: Colors.red[700],
-                    ),
-                  ),
+                  onPressed: () {
+                    // controller.setTemperatura((-1));
+                  },
                 ),
               ),
             ],
@@ -303,5 +132,44 @@ class ControlePage extends StatelessWidget {
         ),
       );
     });
+  }
+
+  _controllInformation() {
+    //-----Linha de Botões
+    return Column(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ElevatedCard(
+              title: 'Nome',
+              value: controller.controleInfos[0].sala,
+            ),
+            ElevatedCard(
+              title: 'Bloco',
+              value: controller.controleInfos[0].bloco,
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.all(5.0),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ElevatedCard(
+              title: 'Status',
+              value: controller.controleInfos[0].status,
+            ),
+            ElevatedCard(
+              title: 'Humi.',
+              value: controller.controleInfos[0].humidade.toString() + "%",
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

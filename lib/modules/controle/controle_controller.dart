@@ -1,7 +1,8 @@
+import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:splash_ifmt/data/models/controle/controle_model.dart';
-import 'package:splash_ifmt/data/models/sala/sala_model.dart';
 
 import '../socket/socket_handler.dart';
 
@@ -17,7 +18,16 @@ abstract class _ControleControllerBase with Store {
   int temperatura = 24;
 
   @action
-  void initialize() {
+  Future<void> initialize() async {
+    PermissionStatus status = await Permission.location.request();
+
+    await Permission.nearbyWifiDevices.request();
+    if (status != PermissionStatus.granted) {
+      AsukaSnackbar.message("Permissão para salvar o arquivo não concedida")
+          .show();
+
+      // return;
+    }
     getData();
   }
 

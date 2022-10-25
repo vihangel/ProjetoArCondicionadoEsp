@@ -40,6 +40,14 @@ mixin _$ControleController on _ControleControllerBase, Store {
     });
   }
 
+  final _$initializeAsyncAction =
+      AsyncAction('_ControleControllerBase.initialize');
+
+  @override
+  Future<void> initialize() {
+    return _$initializeAsyncAction.run(() => super.initialize());
+  }
+
   final _$setTemperaturaAsyncAction =
       AsyncAction('_ControleControllerBase.setTemperatura');
 
@@ -50,17 +58,6 @@ mixin _$ControleController on _ControleControllerBase, Store {
 
   final _$_ControleControllerBaseActionController =
       ActionController(name: '_ControleControllerBase');
-
-  @override
-  void initialize() {
-    final _$actionInfo = _$_ControleControllerBaseActionController.startAction(
-        name: '_ControleControllerBase.initialize');
-    try {
-      return super.initialize();
-    } finally {
-      _$_ControleControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void getData() {

@@ -1,6 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:splash_ifmt/data/models/controle/controle_model.dart';
-import 'package:splash_ifmt/data/models/sala/sala_model.dart';
 
 part 'config_controller.g.dart';
 

@@ -3,14 +3,14 @@ import 'package:mobx/mobx.dart';
 
 import 'dart:async';
 import 'dart:io';
-
+import 'package:dart_ipify/dart_ipify.dart';
 part 'socket_handler.g.dart';
 
 class SocketHandler = _SocketHandlerBase with _$SocketHandler;
 
 abstract class _SocketHandlerBase with Store {
   @observable
-  String ip = "http://localhost";
+  String ip = "192.168.4.2";
 
   @observable
   int port = 80;
@@ -23,9 +23,13 @@ abstract class _SocketHandlerBase with Store {
 
   @action
   Future<Socket> _getInstance() async {
-    if (_socketInstance == null) {
-      _socketInstance = await Socket.connect(ip, port);
-    }
+    // if (_socketInstance == null) {
+    // final ipv4 = await Ipify.ipv4();
+    // print("ipv4: $ipv4");
+    _socketInstance = await Socket.connect(ip, port, sourcePort: 80);
+    print("Socket: ${_socketInstance?.address}");
+    print("Socket: ${_socketInstance?.port}");
+    // }
 
     return _socketInstance!;
   }
@@ -53,6 +57,7 @@ abstract class _SocketHandlerBase with Store {
   Future<void> sendMessage(String message) async {
     try {
       final socket = await _getInstance();
+
       socket.writeln(message);
       AsukaSnackbar.message(message).show();
       await socket.flush();
