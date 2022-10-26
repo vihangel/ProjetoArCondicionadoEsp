@@ -14,12 +14,22 @@ import 'package:splash_ifmt/shared/app_text_styles.dart';
 
 final controller = Modular.get<ControleController>();
 
-class ControlePage extends StatelessWidget {
+class ControlePage extends StatefulWidget {
   const ControlePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<ControlePage> createState() => _ControlePageState();
+}
+
+class _ControlePageState extends State<ControlePage> {
+  @override
+  void initState() {
+    super.initState();
     controller.initialize();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Observer(builder: (context) {
       return Padding(
@@ -47,47 +57,26 @@ class ControlePage extends StatelessWidget {
                 child: _controllInformation(),
               ),
 
-              SizedBox(
-                //height: 120,
-                //width: 155,
-                child: Observer(builder: (context) {
-                  return ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                      ),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(AppColors.stroke),
+              ButtonControll(
+                icon: Column(
+                  children: [
+                    Observer(builder: (context) {
+                      controller.temperatura;
+                      return Text(
+                        controller.controleInfos[0].temperatura.toString() +
+                            " Cº",
+                        style: TextStyles.titleHome,
+                        textAlign: TextAlign.center,
+                      );
+                    }),
+                    Text(
+                      "Tem. Atual",
+                      style: TextStyles.titleRegular,
+                      textAlign: TextAlign.center,
                     ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Observer(builder: (context) {
-                            controller.temperatura;
-                            return Text(
-                              controller.controleInfos[0].temperatura
-                                      .toString() +
-                                  " Cº",
-                              style: TextStyles.titleHome,
-                              textAlign: TextAlign.center,
-                            );
-                          }),
-                          Text(
-                            "Tem. Atual",
-                            style: TextStyles.titleRegular,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                  ],
+                ),
+                onPressed: () {},
               ),
 
               Padding(
