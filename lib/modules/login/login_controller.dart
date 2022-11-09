@@ -97,7 +97,7 @@ abstract class _LoginControllerBase with Store {
     final controller = Modular.get<AuthService>();
     try {
       // emit(state.copyWith(status: LoginStatus.loading));
-      await controller.signIn();
+      // await controller.signIn();
       // await controller.signOut();
       AsukaSnackbar.success('Logado com sucesso!').show();
 

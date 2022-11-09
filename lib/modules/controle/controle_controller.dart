@@ -19,6 +19,7 @@ abstract class _ControleControllerBase with Store {
 
   @action
   Future<void> initialize() async {
+    getData();
     PermissionStatus status = await Permission.location.request();
 
     await Permission.nearbyWifiDevices.request();
@@ -28,7 +29,6 @@ abstract class _ControleControllerBase with Store {
 
       // return;
     }
-    getData();
   }
 
   final socketController = Modular.get<SocketHandler>();
