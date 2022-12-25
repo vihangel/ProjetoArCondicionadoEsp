@@ -59,22 +59,22 @@ abstract class _SocketHandlerBase with Store {
       // await socket.flush();
 
       // _destroyAfterTime();
-        final completer = Completer<String>();
-    final socket = await Socket.connect(ip, port, sourcePort: 5000);
+      final completer = Completer<String>();
+      final socket = await Socket.connect(ip, port, sourcePort: 5000);
 
-    socket.listen((event) {
-      final response = String.fromCharCodes(event);
-      completer.complete(response);
-    }, onDone: () {
-      socket.destroy();
-    }, onError: (err) {
-      completer.completeError(err);
-      socket.destroy();
-    });
+      socket.listen((event) {
+        final response = String.fromCharCodes(event);
+        completer.complete(response);
+      }, onDone: () {
+        socket.destroy();
+      }, onError: (err) {
+        completer.completeError(err);
+        socket.destroy();
+      });
 
-    socket.write(message);
+      socket.write(message);
 
-    return completer.future;
+      // return completer.future;
     } catch (e) {
       print("Erro ao enviar mensagem: $e");
 
