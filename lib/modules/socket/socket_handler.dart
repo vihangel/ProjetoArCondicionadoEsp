@@ -10,10 +10,10 @@ class SocketHandler = _SocketHandlerBase with _$SocketHandler;
 
 abstract class _SocketHandlerBase with Store {
   @observable
-  String ip = "192.168.4.2";
+  String ip = "192.168.4.1";
 
   @observable
-  int port = 80;
+  int port = 5000;
 
   @observable
   Timer? _lastTimer;
@@ -23,13 +23,9 @@ abstract class _SocketHandlerBase with Store {
 
   @action
   Future<Socket> _getInstance() async {
-    // if (_socketInstance == null) {
-    // final ipv4 = await Ipify.ipv4();
-    // print("ipv4: $ipv4");
-    _socketInstance = await Socket.connect(ip, port, sourcePort: 80);
+    _socketInstance = await Socket.connect(ip, port, sourcePort: 5000);
     print("Socket: ${_socketInstance?.address}");
     print("Socket: ${_socketInstance?.port}");
-    // }
 
     return _socketInstance!;
   }
@@ -43,7 +39,7 @@ abstract class _SocketHandlerBase with Store {
   @action
   void _destroyAfterTime() {
     _lastTimer?.cancel();
-    _lastTimer = Timer(const Duration(seconds: 2), _destroyInstance);
+    _lastTimer = Timer(const Duration(milliseconds: 500), _destroyInstance);
   }
 
 //Aqui tem q ser chamado no ciclo de vida do widget eu acho
@@ -56,13 +52,29 @@ abstract class _SocketHandlerBase with Store {
   @action
   Future<void> sendMessage(String message) async {
     try {
-      final socket = await _getInstance();
+      // final socket = await _getInstance();
 
-      socket.writeln(message);
-      AsukaSnackbar.message(message).show();
-      await socket.flush();
+      // socket.writeln(message);
+      // AsukaSnackbar.message(message).show();
+      // await socket.flush();
 
-      _destroyAfterTime();
+      // _destroyAfterTime();
+        final completer = Completer<String>();
+    final socket = await Socket.connect(ip, port, sourcePort: 5000);
+
+    socket.listen((event) {
+      final response = String.fromCharCodes(event);
+      completer.complete(response);
+    }, onDone: () {
+      socket.destroy();
+    }, onError: (err) {
+      completer.completeError(err);
+      socket.destroy();
+    });
+
+    socket.write(message);
+
+    return completer.future;
     } catch (e) {
       print("Erro ao enviar mensagem: $e");
 
