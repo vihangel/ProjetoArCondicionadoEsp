@@ -59,16 +59,19 @@ abstract class _SocketHandlerBase with Store {
       // await socket.flush();
 
       // _destroyAfterTime();
-      final completer = Completer<String>();
+      // final completer = Completer<String>();
       final socket = await Socket.connect(ip, port, sourcePort: 5000);
 
       socket.listen((event) {
         final response = String.fromCharCodes(event);
-        completer.complete(response);
+        AsukaSnackbar.message(response).show();
+        // completer.complete(response);
       }, onDone: () {
+        socket.write(message);
         socket.destroy();
       }, onError: (err) {
-        completer.completeError(err);
+        AsukaSnackbar.message(err).show();
+        // completer.completeError(err);
         socket.destroy();
       });
 
